@@ -1,0 +1,65 @@
+{
+  "name": "@cx-utils/core",
+  "version": "1.0.0",
+  "description": "Production-ready class name utility that replaces clsx/classnames with enhanced features",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "build:analyze": "tsup --metafile",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:perf": "vitest run tests/performance.test.ts",
+    "bench": "tsx benchmarks/compare.ts",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run typecheck && npm run test && npm run build"
+  },
+  "keywords": [
+    "classnames",
+    "clsx",
+    "cx",
+    "tailwind",
+    "tailwind-merge",
+    "css",
+    "className",
+    "react",
+    "typescript",
+    "utility"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@vitest/coverage-v8": "^1.0.4",
+    "classnames": "^2.3.2",
+    "clsx": "^2.0.0",
+    "tinybench": "^2.5.1",
+    "tsup": "^8.0.1",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3",
+    "vitest": "^1.0.4"
+  },
+  "engines": {
+    "node": ">=16"
+  }
+}
