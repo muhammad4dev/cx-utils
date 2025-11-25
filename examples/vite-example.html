@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>@cx-utils/core - Vite Example</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 p-8">
+  <div id="app"></div>
+
+  <script type="module">
+    // Import from your built library
+    import { cx, mergeCx, composeClasses } from '../dist/index.mjs';
+
+    // Example 1: Basic cx usage
+    const container = document.createElement('div');
+    container.className = cx(
+      'max-w-4xl mx-auto p-8 bg-white rounded-lg shadow-lg'
+    );
+
+    // Example 2: Dynamic button with state
+    const button = document.createElement('button');
+    let isActive = false;
+
+    function updateButton() {
+      button.className = cx(
+        'px-6 py-3 rounded-lg font-medium transition-all',
+        {
+          'bg-blue-600 text-white shadow-lg': isActive,
+          'bg-gray-200 text-gray-800': !isActive,
+        }
+      );
+      button.textContent = isActive ? 'Active' : 'Inactive';
+    }
+
+    button.addEventListener('click', () => {
+      isActive = !isActive;
+      updateButton();
+    });
+
+    updateButton();
+
+    // Example 3: Card with mergeCx
+    const card = document.createElement('div');
+    const baseCardClasses = 'p-4 bg-white rounded-lg shadow';
+    const customClasses = 'p-6 bg-gradient-to-r from-purple-500 to-pink-500';
+    
+    card.className = mergeCx(baseCardClasses, customClasses);
+    card.innerHTML = `
+      <h2 class="text-2xl font-bold text-white mb-2">mergeCx Example</h2>
+      <p class="text-white/90">Default p-4 is overridden by custom p-6</p>
+    `;
+
+    // Example 4: Variant composition
+    const buttonVariants = composeClasses({
+      base: 'px-4 py-2 rounded font-medium transition-colors',
+      variants: {
+        variant: {
+          primary: 'bg-blue-600 text-white hover:bg-blue-700',
+          secondary: 'bg-gray-600 text-white hover:bg-gray-700',
+          outline: 'border-2 border-blue-600 text-blue-600 hover:bg-blue-50',
+        },
+        size: {
+          sm: 'text-sm px-3 py-1',
+          md: 'text-base px-4 py-2',
+          lg: 'text-lg px-6 py-3',
+        },
+      },
+      defaultVariants: {
+        variant: 'primary',
+        size: 'md',
+      },
+    });
+
+    const variantButtonsContainer = document.createElement('div');
+    variantButtonsContainer.className = 'flex gap-4 mt-6';
+
+    const variants = [
+      { variant: 'primary', size: 'sm', text: 'Small Primary' },
+      { variant: 'secondary', size: 'md', text: 'Medium Secondary' },
+      { variant: 'outline', size: 'lg', text: 'Large Outline' },
+    ];
+
+    variants.forEach(({ variant, size, text }) => {
+      const btn = document.createElement('button');
+      btn.className = buttonVariants({ variant, size });
+      btn.textContent = text;
+      variantButtonsContainer.appendChild(btn);
+    });
+
+    // Example 5: Grid with dynamic classes
+    const grid = document.createElement('div');
+    const columns = 3;
+    grid.className = cx(
+      'grid gap-4 mt-6',
+      {
+        'grid-cols-1': columns === 1,
+        'grid-cols-2': columns === 2,
+        'grid-cols-3': columns === 3,
+        'grid-cols-4': columns === 4,
+      }
+    );
+
+    for (let i = 1; i <= 6; i++) {
+      const item = document.createElement('div');
+      const isFeatured = i % 2 === 0;
+      
+      item.className = cx(
+        'p-6 rounded-lg border-2 transition-all',
+        {
+          'border-yellow-400 bg-yellow-50': isFeatured,
+          'border-gray-200 bg-white': !isFeatured,
+        }
+      );
+      
+      item.innerHTML = `
+        <h3 class="text-lg font-semibold mb-2">Item ${i}</h3>
+        <p class="text-gray-600">
+          ${isFeatured ? '⭐ Featured item' : 'Regular item'}
+        </p>
+      `;
+      
+      grid.appendChild(item);
+    }
+
+    // Build the page
+    const title = document.createElement('h1');
+    title.className = 'text-4xl font-bold mb-8 text-gray-900';
+    title.textContent = '@cx-utils/core - Vite Example';
+
+    const section1 = document.createElement('div');
+    section1.className = 'mb-8';
+    section1.innerHTML = '<h2 class="text-2xl font-bold mb-4">Dynamic Button State</h2>';
+    section1.appendChild(button);
+
+    const section2 = document.createElement('div');
+    section2.className = 'mb-8';
+    section2.appendChild(card);
+
+    const section3 = document.createElement('div');
+    section3.className = 'mb-8';
+    section3.innerHTML = '<h2 class="text-2xl font-bold mb-4">Variant Buttons</h2>';
+    section3.appendChild(variantButtonsContainer);
+
+    const section4 = document.createElement('div');
+    section4.innerHTML = '<h2 class="text-2xl font-bold mb-4">Dynamic Grid</h2>';
+    section4.appendChild(grid);
+
+    container.appendChild(title);
+    container.appendChild(section1);
+    container.appendChild(section2);
+    container.appendChild(section3);
+    container.appendChild(section4);
+
+    document.getElementById('app').appendChild(container);
+
+    console.log('✨ @cx-utils/core is working in Vite!');
+    console.log('Examples:');
+    console.log('- cx("foo", "bar"):', cx('foo', 'bar'));
+    console.log('- cx({ active: true, disabled: false }):', cx({ active: true, disabled: false }));
+    console.log('- mergeCx("px-4", "px-6"):', mergeCx('px-4', 'px-6'));
+  </script>
+</body>
+</html>
