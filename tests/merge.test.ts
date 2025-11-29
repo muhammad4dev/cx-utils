@@ -227,5 +227,9 @@ describe("mergeCx()", () => {
     it('should handle arbitrary values "later value wins" ', () => {
       expect(mergeCx("px-[10px]", "px-[20px]")).toBe("px-[20px]");
     });
+
+    it("should handle classes with trailing colon", () => {
+      expect(mergeCx("hover:")).toBe("hover:");
+    });
   });
 });
