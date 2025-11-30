@@ -554,7 +554,7 @@ npm run prepublishOnly
 
 ## 📄 License
 
-**_cx-utils_** is [MIT licensed](./LICENSE).
+**cx-utils** is [MIT licensed](https://github.com/muhammad4dev/cx-utils/blob/main/LICENSE).
 
 ## 🤝 Contributing
 
