@@ -2,6 +2,17 @@
   "name": "@cx-utils/core",
   "version": "1.0.0",
   "description": "Production-ready class name utility that replaces clsx/classnames with enhanced features",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/muhammad4dev/cx-utils.git"
+  },
+  "homepage": "https://muhammad4dev.github.io/cx-utils/",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/muhammad4dev/cx-utils/blob/main/LICENSE"
+    }
+  ],
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
