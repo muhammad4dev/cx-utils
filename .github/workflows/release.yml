@@ -14,11 +14,13 @@ on:
           - major
           - prerelease
 
+permissions:
+  contents: write
+  id-token: write
+
 jobs:
   release:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
 
     steps:
       - name: Checkout code
@@ -57,3 +59,8 @@ jobs:
         with:
           tag_name: v${{ steps.bump.outputs.version }}
           generate_release_notes: true
+
+  publish:
+    needs: release
+    uses: ./.github/workflows/publish.yml
+    secrets: inherit
