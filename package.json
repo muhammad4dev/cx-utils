@@ -1,6 +1,6 @@
 {
   "name": "@cx-utils/core",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Production-ready class name utility that replaces clsx/classnames with enhanced features",
   "repository": {
     "type": "git",
